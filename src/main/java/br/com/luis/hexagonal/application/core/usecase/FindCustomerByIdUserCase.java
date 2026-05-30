@@ -13,7 +13,7 @@ public class FindCustomerByIdUserCase implements FindCustomerInportPort {
     }
 
     @Override
-    public Customer findById(String id){
+    public Customer find(String id){
         return findCustomerByIdOutputPort.find(id).orElseThrow(() -> new RuntimeException("Customer not found"));
     }
 }
