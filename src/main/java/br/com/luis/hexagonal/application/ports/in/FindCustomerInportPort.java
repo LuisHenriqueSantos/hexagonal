@@ -4,6 +4,6 @@ import br.com.luis.hexagonal.application.core.domain.Customer;
 
 public interface FindCustomerInportPort {
     
-    Customer findById(String id);
+    Customer find(String id);
     
 }
