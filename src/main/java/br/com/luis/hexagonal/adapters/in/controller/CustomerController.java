@@ -3,8 +3,11 @@ package br.com.luis.hexagonal.adapters.in.controller;
 import br.com.luis.hexagonal.adapters.in.controller.mapper.CustomerMapper;
 import br.com.luis.hexagonal.adapters.in.controller.request.CustomerRequest;
 import br.com.luis.hexagonal.adapters.in.controller.response.CustomerResponse;
+import br.com.luis.hexagonal.adapters.out.repository.entity.CustomerEntity;
+import br.com.luis.hexagonal.application.core.domain.Customer;
 import br.com.luis.hexagonal.application.ports.in.FindCustomerInportPort;
 import br.com.luis.hexagonal.application.ports.in.InsertCustomerInputPort;
+import br.com.luis.hexagonal.application.ports.in.UpdateCustomerInportPort;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +25,9 @@ public class CustomerController {
     private FindCustomerInportPort findCustomerInportPort;
     
     @Autowired
+    private UpdateCustomerInportPort updateCustomerInportPort;
+    
+    @Autowired
     private CustomerMapper customerMapper;
     
     @PostMapping
@@ -37,5 +43,15 @@ public class CustomerController {
         var customer = findCustomerInportPort.find(id);
         var customerResponse = customerMapper.toCustomerResponse(customer);
         return ResponseEntity.ok().body(customerResponse);
+    }
+    
+    @PutMapping("{/id}")
+    public ResponseEntity<Void> update(@PathVariable final String id,
+                                       @Valid @RequestBody CustomerRequest customerRequest){
+
+        Customer customer = customerMapper.toCustomer(customerRequest);
+        customer.setId(id);
+        updateCustomerInportPort.update(customer, customerRequest.getZipCode());
+        return ResponseEntity.noContent().build();
     }
 }

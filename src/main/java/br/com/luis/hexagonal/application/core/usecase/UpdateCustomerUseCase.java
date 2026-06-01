@@ -2,10 +2,11 @@ package br.com.luis.hexagonal.application.core.usecase;
 
 import br.com.luis.hexagonal.application.core.domain.Customer;
 import br.com.luis.hexagonal.application.ports.in.FindCustomerInportPort;
+import br.com.luis.hexagonal.application.ports.in.UpdateCustomerInportPort;
 import br.com.luis.hexagonal.application.ports.out.FindAddressByZipCodeOutputPort;
 import br.com.luis.hexagonal.application.ports.out.UpdateCustomerOutputPort;
 
-public class UpdateCustomerUseCase {
+public class UpdateCustomerUseCase implements UpdateCustomerInportPort {
     
     private final FindCustomerInportPort findCustomerInportPort;
     
@@ -22,6 +23,7 @@ public class UpdateCustomerUseCase {
         this.updateCustomerOutputPort = updateCustomerOutputPort;
     }
 
+    @Override
     public void update (Customer customer, String zipCode){
         findCustomerInportPort.find(customer.getId());
         var addres = findAddressByZipCodeOutputPort.find(zipCode);
