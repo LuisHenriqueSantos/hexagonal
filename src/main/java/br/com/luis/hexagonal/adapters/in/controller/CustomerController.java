@@ -5,6 +5,7 @@ import br.com.luis.hexagonal.adapters.in.controller.request.CustomerRequest;
 import br.com.luis.hexagonal.adapters.in.controller.response.CustomerResponse;
 import br.com.luis.hexagonal.adapters.out.repository.entity.CustomerEntity;
 import br.com.luis.hexagonal.application.core.domain.Customer;
+import br.com.luis.hexagonal.application.ports.in.DeleteCustomerByIdInportPort;
 import br.com.luis.hexagonal.application.ports.in.FindCustomerInportPort;
 import br.com.luis.hexagonal.application.ports.in.InsertCustomerInputPort;
 import br.com.luis.hexagonal.application.ports.in.UpdateCustomerInportPort;
@@ -26,6 +27,9 @@ public class CustomerController {
     
     @Autowired
     private UpdateCustomerInportPort updateCustomerInportPort;
+    
+    @Autowired
+    private DeleteCustomerByIdInportPort deleteCustomerByIdInportPort;
     
     @Autowired
     private CustomerMapper customerMapper;
@@ -52,6 +56,12 @@ public class CustomerController {
         Customer customer = customerMapper.toCustomer(customerRequest);
         customer.setId(id);
         updateCustomerInportPort.update(customer, customerRequest.getZipCode());
+        return ResponseEntity.noContent().build();
+    }
+    
+    @DeleteMapping("{/id}")
+    public ResponseEntity<Void> delete(@PathVariable final String id){
+        deleteCustomerByIdInportPort.delete(id);
         return ResponseEntity.noContent().build();
     }
 }
