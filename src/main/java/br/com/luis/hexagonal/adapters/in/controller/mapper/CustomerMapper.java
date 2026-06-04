@@ -14,5 +14,6 @@ public interface CustomerMapper {
     @Mapping(target = "validCpf", ignore = true)
     Customer toCustomer(CustomerRequest customerRequest);
 
+    @Mapping(target = "isValidCpf", source = "validCpf")
     CustomerResponse toCustomerResponse(Customer customer);
 }
