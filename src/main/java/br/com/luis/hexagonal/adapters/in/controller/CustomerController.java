@@ -16,7 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/api/vi/customers")
+@RequestMapping("/api/v1/customers")
 public class CustomerController {
      
     @Autowired
@@ -41,15 +41,15 @@ public class CustomerController {
         insertCustomerInputPort.insert(customer, customerRequest.getZipCode());
         return ResponseEntity.ok().build();
     }
-    
-    @GetMapping("{/id}")
+
+    @GetMapping("/{id}")
     public ResponseEntity<CustomerResponse> findById(@PathVariable final String id){
         var customer = findCustomerInportPort.find(id);
         var customerResponse = customerMapper.toCustomerResponse(customer);
         return ResponseEntity.ok().body(customerResponse);
     }
     
-    @PutMapping("{/id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Void> update(@PathVariable final String id,
                                        @Valid @RequestBody CustomerRequest customerRequest){
 
@@ -59,7 +59,7 @@ public class CustomerController {
         return ResponseEntity.noContent().build();
     }
     
-    @DeleteMapping("{/id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable final String id){
         deleteCustomerByIdInportPort.delete(id);
         return ResponseEntity.noContent().build();
