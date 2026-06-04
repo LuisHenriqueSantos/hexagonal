@@ -1,7 +1,6 @@
 package br.com.luis.hexagonal.config;
 
 import br.com.luis.hexagonal.adapters.out.DeleteCustomerByIdAdapter;
-import br.com.luis.hexagonal.adapters.out.FindCustomerByIdAdapter;
 import br.com.luis.hexagonal.application.core.usecase.DeleteCustomerByIdUseCase;
 import br.com.luis.hexagonal.application.core.usecase.FindCustomerByIdUserCase;
 import org.springframework.context.annotation.Bean;
