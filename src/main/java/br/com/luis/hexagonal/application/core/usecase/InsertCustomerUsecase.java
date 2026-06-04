@@ -5,13 +5,13 @@ import br.com.luis.hexagonal.application.ports.out.FindAddressByZipCodeOutputPor
 import br.com.luis.hexagonal.application.ports.out.InsertCustomerOutputPort;
 import br.com.luis.hexagonal.application.ports.in.InsertCustomerInputPort;
 
-public class insertCustomerUsecase implements InsertCustomerInputPort{
+public class InsertCustomerUsecase implements InsertCustomerInputPort{
     
     private final FindAddressByZipCodeOutputPort findAddressByZipCodeOutputPort;
 
     private final InsertCustomerOutputPort insertCustomerOutputPort;
     
-    public insertCustomerUsecase(
+    public InsertCustomerUsecase(
             FindAddressByZipCodeOutputPort findAddressByZipCodeOutputPort, 
             InsertCustomerOutputPort insertCustomerOutputPort
     ){
